@@ -1,5 +1,6 @@
 <?php
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,19 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {
+	return view('welcome');
+
 });
 Route::get('/students/create', function() {
-$student = new Student();
-$student ->first_name ='john';
-$student ->last_name ='Doe';
-$student ->email ='johndoe@gmail.com';
-$student ->age =22;
-$student ->save();
-return 'Student Created';
-});
 
+	$student = new Student();
+	$student ->first_name ='john';
+	$student ->last_name ='Doe';
+	$student ->email ='johndoe@gmail.com';
+	$student ->age = 22;
+	$student ->save();
+	return 'Student Created';
+});
+	
 Route::get('/students', function() {
 	$students = Student::all();
 	return $students;
@@ -34,15 +37,15 @@ Route::get('/students', function() {
 });
 
 Route::get('/students/update', function() {
-	$student = Student::where('email', 'johndoe@gmail.com')->firts();
+	$student = Student::where('email', 'johndoe@gmail.com')->first();
 	$student ->email ='johndoe@gmail';
 	$student ->age =23; //update age as well
 	$student ->save();
-	return 'Students update!';
+	return 'Student Update!';
 });
 
 Route::get('/students/delete', function() {
-	$student = Student::where('email', 'johndoe@gmail.com')->firts();
+	$student = student::where('email', 'johndoe@gmail.com')->first();
 	$student ->delete();
 	return 'Students Delete!';
 });
@@ -56,5 +59,5 @@ Route::get('/courses/create', function() {
 
 Route::get('/course/{id}/students', function($id) {
 	$course =Course::find($id);
-	return $course->students;
+	return $course->student;
 });
